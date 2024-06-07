@@ -1,0 +1,113 @@
+package com.globalsolution;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+		// Criação da ocorrencia
+
+		System.out.print("Olá qual é o seu relato?: ");
+		String description = scanner.nextLine();
+
+		Occurrence occurrence = new Occurrence(
+				generateId(),
+				description, 
+				generateId(), 
+				generateId());
+
+		List<Occurrence> occurrences = new ArrayList<>();
+		occurrences.add(occurrence);
+
+		// Criação do usuário
+
+		System.out.print("Digite seu nome: ");
+		String name = scanner.nextLine();
+		int userId = generateId();
+
+		User user = new User(name, generateId(), occurrences);
+
+		// Criação da espécie
+
+		System.out.print("Qual é o nome do animal?: ");
+		String commonName = scanner.nextLine();
+		System.out.print("Qual é o nome cientifico?: ");
+		String scientificName = scanner.nextLine();
+		System.out.print("De qual familia é o animal?: ");
+		String family = scanner.nextLine();
+		System.out.print("Qual é o estado de conservação?: ");
+		String conservationStatus = scanner.nextLine();
+		System.out.print("Qual é o seu habitat natural?: ");
+		String habitatDescription = scanner.nextLine();
+		System.out.print("Qual é o tipo do seu habitat natural?: ");
+		String habitatType = scanner.nextLine();
+
+		// Criação do Habitat
+
+		Habitat habitat = new Habitat(generateId(), habitatType, habitatDescription);
+
+		System.out.print("Qual é a data que avistou esse comportamento?: ");
+		String startDate = scanner.nextLine();
+		System.out.print("Até que data durou?: ");
+		String endDate = scanner.nextLine();
+		System.out.print("Qual é o nome da localização original?: ");
+		String originalLocationName = scanner.nextLine();
+		System.out.print("Latitude?: ");
+		double latitude = scanner.nextDouble();
+		System.out.print("Longitude?: ");
+		double longitude = scanner.nextDouble();
+		System.out.print("Descrição do local?: ");
+		String originalLocalDescription = scanner.nextLine();
+
+		// Criação da Localização original
+
+		Location originalLocation = new Location(generateId(), originalLocationName, latitude, longitude,
+				originalLocalDescription);
+
+		System.out.print("Qual é a data que ele foi para o outro local?: ");
+		String startDateDestination = scanner.nextLine();
+		System.out.print("Até que data durou?: ");
+		String endDateDestination = scanner.nextLine();
+		System.out.print("Qual é o nome da localização atual?: ");
+		String destinationLocationName = scanner.nextLine();
+		System.out.print("Latitude?: ");
+		double latitudeDestination = scanner.nextDouble();
+		System.out.print("Longitude?: ");
+		double longitudeDestination = scanner.nextDouble();
+		System.out.print("Descrição do local?: ");
+		String destinationLocalDescription = scanner.nextLine();
+
+		// Criação da Localização atual
+
+		Location destinationLocation = new Location(generateId(), destinationLocationName, latitudeDestination,
+				longitudeDestination, destinationLocalDescription);
+
+		Specie specie = new Specie();
+
+		Migration migration = new Migration(generateId(), startDate, endDate, originalLocation, destinationLocation,
+				specie);
+
+		List<Migration> migrations = new ArrayList<>();
+		migrations.add(migration);
+
+		specie.setId(generateId());
+		specie.setScientificName(scientificName);
+		specie.setCommonName(commonName);
+		specie.setFamily(family);
+		specie.setConservationStatus(conservationStatus);
+		specie.setHabitat(habitat);
+		specie.setMigrations(migrations);
+
+		System.out.println("\nEspécie cadastrada:");
+
+		scanner.close();
+	}
+
+	private static int generateId() {
+		return 1;
+	}
+}
